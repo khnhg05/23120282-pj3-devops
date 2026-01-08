@@ -2,8 +2,10 @@ pipeline {
     agent any
 
     environment {
-        MSSV = '23120282' 
-        DOCKER_IMAGE = "${MSSV}"
+        MSSV = '23120282'
+        // TODO: Replace 'khnhg05' with your actual Docker Hub username if different
+        DOCKER_HUB_USERNAME = 'khnhg05' 
+        DOCKER_IMAGE = "${DOCKER_HUB_USERNAME}/23120282"
         CONTAINER_NAME = "cicd_app_${MSSV}"
         DOCKER_CREDENTIALS_ID = 'docker-hub-credentials'
     }
