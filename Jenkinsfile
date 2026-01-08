@@ -10,6 +10,11 @@ pipeline {
         DOCKER_CREDENTIALS_ID = 'docker-hub-credentials'
     }
 
+    triggers {
+        // Check for SCM changes every minute
+        pollSCM '* * * * *'
+    }
+
     stages {
         stage('Checkout') {
             steps {
