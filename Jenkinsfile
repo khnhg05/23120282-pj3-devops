@@ -3,15 +3,13 @@ pipeline {
 
     environment {
         MSSV = '23120282'
-        // TODO: Replace 'khnhg05' with your actual Docker Hub username if different
-        DOCKER_HUB_USERNAME = 'khnhg05' 
+        DOCKER_HUB_USERNAME = 'chung05' 
         DOCKER_IMAGE = "${DOCKER_HUB_USERNAME}/23120282"
         CONTAINER_NAME = "${MSSV}"
         DOCKER_CREDENTIALS_ID = 'docker-hub-credentials'
     }
 
     triggers {
-        // Check for SCM changes every minute
         pollSCM '* * * * *'
     }
 
@@ -36,7 +34,6 @@ pipeline {
             steps {
                 script {
                     echo 'Pushing to Docker Hub...'
-                    // Using withCredentials to explicitly handle login (more robust than withRegistry)
                     withCredentials([usernamePassword(credentialsId: DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                         sh "echo \$DOCKER_PASS | docker login -u \$DOCKER_USER --password-stdin"
                         sh "docker push ${DOCKER_IMAGE}:latest"
